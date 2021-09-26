@@ -1,9 +1,22 @@
 <script lang="ts">
   import Grid from './components/Grid.svelte';
+  import PlayerHud from './components/PlayerHUD.svelte';
+
+  let playerTurn = 'X';
+  const changePlayer = () => {
+    if (playerTurn === 'X') {
+      playerTurn = 'O';
+    } else {
+      playerTurn = 'X';
+    }
+  };
 </script>
 
 <main>
-  <Grid />
+  <div>
+    <PlayerHud {playerTurn} />
+    <Grid {playerTurn} {changePlayer} />
+  </div>
 </main>
 
 <style>

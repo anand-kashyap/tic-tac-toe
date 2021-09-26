@@ -1,15 +1,17 @@
 <script lang="ts">
-  type ICell = 'O' | 'X' | '';
-  export let value: ICell = '';
-  export let index: number;
+  import type { PlayerTurn } from './types';
+
+  export let value: PlayerTurn = '';
+  export let checkResult: () => any;
+  export let disabled: boolean;
 </script>
 
-<div>
+<button on:click={checkResult} {disabled}>
   <p>{value}</p>
-</div>
+</button>
 
 <style>
-  div {
+  button {
     background-color: lightcyan;
     border: 1px solid black;
     border-width: 0 1px 1px 0;
