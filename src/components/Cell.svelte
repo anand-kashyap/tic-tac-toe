@@ -3,10 +3,9 @@
 
   export let value: PlayerTurn = '';
   export let checkResult: () => any;
-  export let disabled: boolean;
 </script>
 
-<button on:click={checkResult} {disabled}>
+<button on:click={checkResult}>
   <p>{value}</p>
 </button>
 

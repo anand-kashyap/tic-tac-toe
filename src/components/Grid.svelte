@@ -8,43 +8,57 @@
   const cellIndexes = new Array(9).fill(null).map((_val, index) => index);
   let valArr = new Array(9);
   let gameOver = false;
+  let winStyle = '';
 
   const checkResult = (index: number) => {
+    if (gameOver) return;
     valArr[index] = playerTurn;
-    const isWon = calcResult(valArr, playerTurn as string);
-    if (!isWon) {
+    winStyle = calcResult(valArr, playerTurn as string);
+    if (!winStyle) {
       return changePlayer();
     }
     gameOver = true;
   };
 </script>
 
-<div>
-  {#each cellIndexes as index}
-    <Cell
-      disabled={gameOver}
-      value={valArr[index] || ''}
-      checkResult={() => checkResult(index)}
-    />
-  {/each}
+<div class="gridContainer">
+  <div class="grid">
+    {#each cellIndexes as index}
+      <Cell
+        value={valArr[index] || ''}
+        checkResult={() => checkResult(index)}
+      />
+    {/each}
+  </div>
 </div>
+
 {#if gameOver}
   <button
     on:click={() => {
       valArr = new Array(9);
       gameOver = false;
+      winStyle = '';
     }}>Reset</button
   >
 {/if}
 
 <style>
-  div {
+  .grid {
     display: grid;
     grid-template: repeat(3, 50px) / repeat(3, 50px);
     border: 1px solid black;
     border-width: 1px 0 0 1px;
   }
 
+  .gridContainer {
+    position: relative;
+  }
+  .wonLine {
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background-color: black;
+  }
   button {
     width: 100%;
     height: 40px;
